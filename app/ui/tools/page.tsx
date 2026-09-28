@@ -4,10 +4,10 @@ import { useState, type FormEvent } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 
-export default function ChatPage() {
+export default function ToolsPage() {
   const [input, setInput] = useState("");
   const { messages, sendMessage, status, stop, error } = useChat({
-    transport: new DefaultChatTransport({ api: "/api/chat" }),
+    transport: new DefaultChatTransport({ api: "/api/tools" }),
   });
   const isLoading = status === "submitted" || status === "streaming";
 
@@ -25,14 +25,14 @@ export default function ChatPage() {
         <div className="ai-panel rounded-[28px] p-4 sm:p-6 lg:p-8">
           <div className="mb-6 flex items-center gap-3 sm:gap-4">
             <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#2e6fa0] bg-[#1a3d68] text-xl text-[#dfeefc]">
-              ◔
+              ✦
             </span>
             <h1 className="text-3xl font-bold tracking-[-0.04em] text-white sm:text-4xl">
-              AI Chat Bot
+              AI Tools
             </h1>
           </div>
 
-          <div className="ai-subpanel app-scrollbar mb-6 max-h-[52vh] min-h-[180px] space-y-4 overflow-y-auto rounded-[22px] p-4">
+          <div className="app-scrollbar ai-subpanel mb-6 max-h-[55vh] min-h-[200px] space-y-4 overflow-y-auto rounded-[22px] p-4">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -72,7 +72,7 @@ export default function ChatPage() {
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="Ask something..."
-              rows={4}
+              rows={5}
               className="ai-input w-full rounded-[18px] px-4 py-3 text-sm text-white placeholder:text-[#85a5c1] focus:border-[#3bb3ff] focus:outline-none"
             />
 

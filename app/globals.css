@@ -1,26 +1,142 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --app-bg: #020d1b;
+  --panel-bg: rgba(7, 23, 38, 0.9);
+  --panel-border: rgba(125, 174, 224, 0.28);
+  --panel-soft: rgba(11, 34, 53, 0.95);
+  --panel-strong: #0d2943;
+  --primary: #3bb3ff;
+  --primary-soft: rgba(59, 179, 255, 0.18);
+  --muted: #9bb7d1;
+  --text: #e8f4ff;
+  --text-soft: #bfd4ea;
+  --shadow: rgba(2, 11, 22, 0.7);
+}
+
+@layer utilities {
+  @keyframes audio-wave {
+    0%,
+    100% {
+      transform: scaleY(0.25);
+    }
+
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  .audio-wave-bar {
+    width: 3px;
+    height: 28px;
+    flex: 0 0 3px;
+    border-radius: 9999px;
+    background: #38bdf8;
+    transform: scaleY(0.25);
+    animation: audio-wave 700ms ease-in-out infinite;
+  }
+
+  .audio-wave-bar:nth-child(4n + 1) {
+    animation-delay: -520ms;
+  }
+
+  .audio-wave-bar:nth-child(4n + 2) {
+    animation-delay: -350ms;
+  }
+
+  .audio-wave-bar:nth-child(4n + 3) {
+    animation-delay: -180ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .audio-wave-bar {
+      animation: none;
+      transform: scaleY(0.55);
+    }
+  }
+
+  .app-scrollbar {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  .app-scrollbar:hover,
+  .app-scrollbar:focus-visible {
+    scrollbar-color: #334155 transparent;
+  }
+
+  .app-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .app-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .app-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: transparent;
+    transition: background-color 180ms ease;
+  }
+
+  .app-scrollbar:hover::-webkit-scrollbar-thumb,
+  .app-scrollbar:focus-visible::-webkit-scrollbar-thumb {
+    background-color: #334155;
+  }
+
+  .ai-app-shell {
+    background:
+      radial-gradient(circle at top, rgba(36, 105, 170, 0.25), transparent 28%),
+      linear-gradient(180deg, #020d1b 0%, #061a2d 100%);
+  }
+
+  .ai-panel {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 28, 45, 0.96),
+      rgba(7, 19, 32, 0.96)
+    );
+    border: 1px solid var(--panel-border);
+    box-shadow: 0 28px 80px rgba(1, 10, 18, 0.6);
+  }
+
+  .ai-subpanel {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 35, 55, 0.82),
+      rgba(8, 24, 39, 0.8)
+    );
+    border: 1px solid rgba(125, 174, 224, 0.18);
+  }
+
+  .ai-input {
+    background: rgba(6, 25, 40, 0.7);
+    border: 1px solid rgba(125, 174, 224, 0.2);
+    color: var(--text);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  }
+
+  .ai-muted {
+    color: var(--muted);
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--app-bg);
+  --color-foreground: var(--text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--app-bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  min-height: 100vh;
+  background: var(--app-bg);
+  color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
 }
