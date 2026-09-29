@@ -2,74 +2,108 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  AudioLines,
+  Braces,
+  ChevronRight,
+  Image,
+  ListChecks,
+  ListFilter,
+  MessageCircle,
+  MessagesSquare,
+  Mic,
+  Sparkles,
+  Waves,
+  Workflow,
+  Wrench,
+  type LucideIcon,
+} from "lucide-react";
 
-const demoTabs = [
+export type DemotabsType = {
+  label: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+};
+const demoTabs: DemotabsType[] = [
   {
     label: "Chat",
     href: "/ui/chat",
     description: "Have a real-time conversation with an AI assistant.",
-    icon: "◔",
+    icon: MessageCircle,
   },
   {
     label: "Stream",
     href: "/ui/stream",
     description: "Watch an AI response appear progressively as it streams.",
-    icon: "▥",
+    icon: Waves,
   },
   {
     label: "Completion",
     href: "/ui/completion",
     description: "Generate a complete AI response from a text prompt.",
-    icon: "▣",
+    icon: Sparkles,
   },
   {
     label: "Structured Data",
     href: "/ui/structuredData",
     description:
       "Generate a recipe as structured data with ingredients and steps.",
-    icon: "◫",
+    icon: Braces,
   },
   {
     label: "Structured Array",
     href: "/ui/structuredArray",
     description: "Generate a structured list of Pokémon and their abilities.",
-    icon: "⌁",
+    icon: ListChecks,
   },
   {
     label: "Structured Enum",
     href: "/ui/structuredEnum",
     description: "Classify text sentiment as positive, negative, or neutral.",
-    icon: "◌",
+    icon: ListFilter,
   },
   {
     label: "Multi-Modal Chat",
     href: "/ui/multiModalChat",
     description: "Chat with AI about text, images, and PDF attachments.",
-    icon: "◧",
+    icon: MessagesSquare,
   },
   {
     label: "Image Generation",
     href: "/ui/generateImage",
     description: "Create an image from a written prompt.",
-    icon: "◍",
+    icon: Image,
   },
   {
     label: "Audio Transcription",
     href: "/ui/transcribeAudio",
     description: "Upload audio and get its transcript and detected language.",
-    icon: "◐",
+    icon: Mic,
   },
   {
     label: "Speech Generation",
     href: "/ui/generateSpeech",
     description: "Convert text to speech and play the generated audio.",
-    icon: "◕",
+    icon: AudioLines,
   },
   {
     label: "Tools",
     href: "/ui/tools",
     description: "Use tools to chat with LLM",
-    icon: "✦",
+    icon: Wrench,
+  },
+  {
+    label: "Mutiple Tools",
+    href: "/ui/multipleTools",
+    description: "Use multiple tools to chat with LLM",
+    icon: Workflow,
+  },
+  {
+    label: "API Tools",
+    href: "/ui/apiTools",
+    description: "Use real world weather api tools to chat with LLM",
+    icon: Workflow,
   },
 ];
 
@@ -79,7 +113,7 @@ export default function DemoSidebar() {
   return (
     <aside className="ai-panel app-scrollbar min-w-0 rounded-[28px] p-4 sm:p-5 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
       <nav className="app-scrollbar flex gap-3 overflow-x-auto pb-2 lg:block lg:space-y-3 lg:overflow-visible lg:pb-0">
-        {demoTabs.map(({ label, href, description, icon }) => {
+        {demoTabs.map(({ label, href, description, icon: Icon }) => {
           const isActive = pathname === href;
 
           return (
@@ -96,14 +130,14 @@ export default function DemoSidebar() {
             >
               <span
                 className={[
-                  "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border text-lg font-semibold",
+                  "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border",
                   isActive
                     ? "border-[#2c7fcd] bg-[#1d5c96] text-white"
                     : "border-[#1f4167] bg-[#102e47] text-[#9ed7ff]",
                 ].join(" ")}
                 aria-hidden="true"
               >
-                {icon}
+                <Icon className="h-5 w-5" strokeWidth={1.8} />
               </span>
 
               <span className="min-w-0 flex-1">
@@ -118,13 +152,13 @@ export default function DemoSidebar() {
               <span
                 aria-hidden="true"
                 className={[
-                  "text-lg transition-transform duration-200",
+                  "transition-transform duration-200",
                   isActive
                     ? "text-[#bfe6ff]"
                     : "text-[#82a9cb] group-hover:translate-x-0.5",
                 ].join(" ")}
               >
-                ›
+                <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </span>
             </Link>
           );

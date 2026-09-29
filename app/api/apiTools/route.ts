@@ -17,14 +17,25 @@ const tools = {
       city: z.string().describe("The city to get the weather for"),
     }),
     execute: async ({ city }) => {
-      if (city === "Error City") throw new Error("Weather service unavailable");
-      if (city === "Italo") {
-        return "70F and cloudy";
-      } else if (city === "Metroplis") {
-        return "80F and sunny";
-      } else {
-        return "unknown";
-      }
+      const response = await fetch(
+        `http://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=${city}`,
+      );
+      const data = await response.json();
+      const weatherData = {
+        location: {
+          name: data.location.name,
+          country: data.location.country,
+          localtime: data.location.localtime,
+        },
+        current: {
+          temp_c: data.current.temp_c,
+          condition: {
+            text: data.current.condition.text,
+            code: data.current.condition.code,
+          },
+        },
+      };
+      return weatherData;
     },
   }),
 };

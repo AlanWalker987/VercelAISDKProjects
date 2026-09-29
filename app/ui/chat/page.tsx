@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import { MessageCircle } from "lucide-react";
 
 export default function ChatPage() {
   const [input, setInput] = useState("");
@@ -24,8 +25,11 @@ export default function ChatPage() {
       <div className="w-full min-w-0">
         <div className="ai-panel rounded-[28px] p-4 sm:p-6 lg:p-8">
           <div className="mb-6 flex items-center gap-3 sm:gap-4">
-            <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#2e6fa0] bg-[#1a3d68] text-xl text-[#dfeefc]">
-              ◔
+            <span
+              className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#2e6fa0] bg-[#1a3d68] text-[#dfeefc]"
+              aria-hidden="true"
+            >
+              <MessageCircle className="h-5 w-5" strokeWidth={1.8} />
             </span>
             <h1 className="text-3xl font-bold tracking-[-0.04em] text-white sm:text-4xl">
               AI Chat Bot

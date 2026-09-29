@@ -4,12 +4,12 @@ import { useState, type FormEvent } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { Wrench } from "lucide-react";
-import type { ChatMessage } from "@/app/api/tools/route";
+import type { ChatMessage } from "@/app/api/apiTools/route";
 
-export default function ToolsPage() {
+export default function APIToolsChatPage() {
   const [input, setInput] = useState("");
   const { messages, sendMessage, status, stop, error } = useChat<ChatMessage>({
-    transport: new DefaultChatTransport({ api: "/api/tools" }),
+    transport: new DefaultChatTransport({ api: "/api/apiTools" }),
   });
   const isLoading = status === "submitted" || status === "streaming";
 
@@ -33,7 +33,7 @@ export default function ToolsPage() {
               <Wrench className="h-5 w-5" strokeWidth={1.8} />
             </span>
             <h1 className="text-3xl font-bold tracking-[-0.04em] text-white sm:text-4xl">
-              AI Tools
+              Weather API AI Tool
             </h1>
           </div>
 
@@ -140,7 +140,13 @@ export default function ToolsPage() {
                               </div>
                               <div className={toolContentClass}>
                                 <p className="text-sm leading-6 text-[#edf7ff]">
-                                  {part.output}
+                                  {part.output.location.name}
+                                </p>
+                                <p className="text-sm leading-6 text-[#edf7ff]">
+                                  {part.output.current.temp_c}
+                                </p>
+                                <p className="text-sm leading-6 text-[#edf7ff]">
+                                  {part.output.current.condition.text}
                                 </p>
                               </div>
                             </section>
